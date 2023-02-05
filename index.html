@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <title>Fun clicking Game</title>
+  </head>
+  <body>
+    <h1>Fun clicking Game</h1>
+    <button id="clickBtn">Click</button>
+    <br><br>
+    <p>Score: <span id="score">0</span></p>
+    <p id="message"></p>
+    
+    <script>
+      const clickBtn = document.querySelector('#clickBtn');
+      const score = document.querySelector('#score');
+      const message = document.querySelector('#message');
+      
+      let scoreMultiplier = 1;
+      let clickInterval = 1000;
+      let intervalId = null;
+      
+      const messages = [
+        "Good start!",
+        "Keep it up!",
+        "You're on a roll!",
+        "You're getting the hang of it!",
+        "Don't let up!",
+        "You're almost there!",
+        "You can do this!",
+        "You're a pro!",
+        "You're unstoppable!",
+        "You're the champion!"
+      ];
+      
+      let messageIndex = 0;
+      
+      clickBtn.addEventListener('click', function() {
+        let currentScore = parseInt(score.innerHTML);
+        score.innerHTML = currentScore + scoreMultiplier;
+        message.innerHTML = messages[messageIndex];
+        messageIndex = (messageIndex + 1) % messages.length;
+        if (currentScore + scoreMultiplier >= 50) {
+          window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+        }
+      });
+      
+      const increaseDifficulty = function() {
+        scoreMultiplier *= 2;
+        clickInterval *= 0.9;
+        clearInterval(intervalId);
+        intervalId = setInterval(function() {
+          clickBtn.click();
+        }, clickInterval);
+      };
+      
+      setTimeout(increaseDifficulty, 5000);
+    </script>
+  </body>
+</html>
